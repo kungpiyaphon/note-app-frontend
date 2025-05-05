@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
 import { ProtectedRoute } from "./components/common/ProtectedRoute";
 import { DashboardPage } from "./pages/DashboardPage";
+import { NoteDetailsPage } from "./pages/NoteDetailsPage";
 
 function App() {
   return (
@@ -21,6 +22,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/notes/:noteId"
+            element={
+              <ProtectedRoute>
+                <NoteDetailsPage />
               </ProtectedRoute>
             }
           />
