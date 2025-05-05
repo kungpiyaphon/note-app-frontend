@@ -7,23 +7,27 @@ import { SignupPage } from "./pages/SignupPage";
 import { ProtectedRoute } from "./components/common/ProtectedRoute";
 import { DashboardPage } from "./pages/DashboardPage";
 
-
 function App() {
-  return <Router>
-    <AuthProvider>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        } />
-      </Routes>
-    </AuthProvider>
-  </Router>;
+  return (
+    <Router>
+      <AuthProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
+    </Router>
+  );
 }
 
 export default App;
