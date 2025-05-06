@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { deleteNote, getMyNotes, searchNotes } from "../services/notesService.js";
 import { PlusCircle, Search } from "lucide-react";
 import { CreateNote } from "./CreateNote.jsx";
+import { NoteCard } from "../components/notes/NoteCard.jsx";
 
 export const DashboardPage = () => {
   const { user } = useAuth();
