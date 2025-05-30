@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { signupUser } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
 import { FaUserPlus } from "react-icons/fa";
+import { FaMicrosoft, FaLine } from "react-icons/fa6";
 
 export const SignupPage = () => {
   const { setUser } = useAuth();
@@ -39,6 +40,14 @@ export const SignupPage = () => {
     }
   };
 
+  const handleMicrosoftSignup = () => {
+    console.log("Sign up with Microsoft 365 clicked");
+  };
+
+  const handleLineSignup = () => {
+    console.log("Sign up with LINE clicked");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 to-blue-100 px-4">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-lg space-y-6">
@@ -60,7 +69,10 @@ export const SignupPage = () => {
 
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label htmlFor="fullName" className="block text-sm font-semibold text-gray-600">
+            <label
+              htmlFor="fullName"
+              className="block text-sm font-semibold text-gray-600"
+            >
               Full Name
             </label>
             <input
@@ -75,7 +87,10 @@ export const SignupPage = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-gray-600">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-gray-600"
+            >
               Email Address
             </label>
             <input
@@ -89,7 +104,10 @@ export const SignupPage = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-semibold text-gray-600">
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold text-gray-600"
+            >
               Password
             </label>
             <input
@@ -103,7 +121,10 @@ export const SignupPage = () => {
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-semibold text-gray-600">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-semibold text-gray-600"
+            >
               Confirm Password
             </label>
             <input
@@ -125,6 +146,25 @@ export const SignupPage = () => {
             {loading ? "Signing up..." : "Sign Up"}
           </button>
         </form>
+
+        {/* Sign up with Microsoft & LINE */}
+        <div className="space-y-3">
+          <button
+            onClick={handleMicrosoftSignup}
+            className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg text-gray-700 hover:bg-gray-300 transition"
+          >
+            <FaMicrosoft className="text-xl" />
+            Sign up with Microsoft 365
+          </button>
+
+          <button
+            onClick={handleLineSignup}
+            className="w-full flex items-center justify-center gap-2 border border-green-400 py-2 rounded-lg text-green-600 hover:bg-green-200 transition"
+          >
+            <FaLine className="text-xl" />
+            Sign up with LINE
+          </button>
+        </div>
 
         <p className="text-center text-sm text-gray-500">
           Already have an account?{" "}
