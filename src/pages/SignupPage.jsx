@@ -4,9 +4,9 @@ import { signupUser, signupWithMicrosoft } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
 import { FaUserPlus } from "react-icons/fa";
 import { FaMicrosoft, FaLine } from "react-icons/fa6";
-import { PublicClientApplication } from "@azure/msal-browser";
 import { loginRequest } from "../services/authConfig";
 import { useMsal } from "@azure/msal-react";
+import { toast } from "react-toastify";
 
 export const SignupPage = () => {
   const { setUser } = useAuth();
@@ -46,7 +46,6 @@ export const SignupPage = () => {
   };
 
   const handleMicrosoftSignup = async (e) => {
-    console.log("Sign up with Microsoft 365 clicked");
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -57,11 +56,13 @@ export const SignupPage = () => {
       console.log(account);
       const data = await signupWithMicrosoft(accessToken);
       setUser(data.user);
+      if (!data.newUser) {
+        toast.info("บัญชีนี้เคยลงทะเบียนแล้ว สามารถล็อกอินเข้าใช้งานได้เลย");
+      }
       navigate("/dashboard");
     } catch (err) {
-      console.error(err);
       setError(
-        err?.response?.data?.message || "Sign up with Microsoft 365 failed"
+        err?.response?.data?.message || "Signup failed. Please try again."
       );
     } finally {
       setLoading(false);

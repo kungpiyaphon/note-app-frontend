@@ -38,22 +38,22 @@ export const LoginPage = () => {
   };
 
   const handleMicrosoftLogin = async () => {
-  setError("");
-  setLoading(true);
+    setError("");
+    setLoading(true);
 
-  try {
-    const loginResponse = await msalInstance.loginPopup(loginRequest);
-    const accessToken = loginResponse.accessToken;
-    const data = await loginWithMicrosoft(accessToken);
-    setUser(data.user);
-    navigate("/dashboard");
-  } catch (err) {
-    console.error(err);
-    setError("Microsoft login failed. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      const loginResponse = await msalInstance.loginPopup(loginRequest);
+      const accessToken = loginResponse.accessToken;
+      const data = await loginWithMicrosoft(accessToken);
+      setUser(data.user);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setError("Microsoft login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex">

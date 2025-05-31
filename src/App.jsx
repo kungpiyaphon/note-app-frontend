@@ -7,6 +7,8 @@ import { SignupPage } from "./pages/SignupPage";
 import { ProtectedRoute } from "./components/common/ProtectedRoute";
 import { DashboardPage } from "./pages/DashboardPage";
 import { NoteDetailsPage } from "./pages/NoteDetailsPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
             }
           />
         </Routes>
+        <ToastContainer position="top-right" autoClose={3000} />
       </AuthProvider>
     </Router>
   );

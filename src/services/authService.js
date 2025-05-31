@@ -28,15 +28,14 @@ export const getProfile = async () => {
 };
 
 export const signupWithMicrosoft = async(accessToken) => {
-    
-    const response = await api.post("/mongo/auth/cookie/microsoft",{
+    const response = await api.post("/mongo/auth/microsoft/signup",{
         accessToken,
     });
     return response.data;
 };
 
 export const loginWithMicrosoft = async(accessToken) => {
-    const response = await api.post("/mongo/auth/microsoft",{
+    const response = await api.post("/mongo/auth/microsoft/signin",{
         accessToken,
     });
     return response.data;
