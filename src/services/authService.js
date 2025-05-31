@@ -26,3 +26,18 @@ export const getProfile = async () => {
     const response = await api.get("/mongo/auth/profile");
     return response.data;
 };
+
+export const signupWithMicrosoft = async(accessToken) => {
+    
+    const response = await api.post("/mongo/auth/cookie/microsoft",{
+        accessToken,
+    });
+    return response.data;
+};
+
+export const loginWithMicrosoft = async(accessToken) => {
+    const response = await api.post("/mongo/auth/microsoft",{
+        accessToken,
+    });
+    return response.data;
+}

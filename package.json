@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@azure/msal-browser": "^4.13.0",
+    "@azure/msal-react": "^3.0.12",
     "@radix-ui/react-checkbox": "^1.3.0",
     "@radix-ui/react-slot": "^1.2.1",
     "@tailwindcss/vite": "^4.1.5",

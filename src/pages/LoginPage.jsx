@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/authService";
+import { loginUser, loginWithMicrosoft } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
+import { FaMicrosoft } from "react-icons/fa6";
+import { PublicClientApplication } from "@azure/msal-browser";
+import { loginRequest, msalConfig } from "../services/authConfig";
+
+const msalInstance = new PublicClientApplication(msalConfig);
 
 export const LoginPage = () => {
   const { setUser } = useAuth();
@@ -32,6 +37,24 @@ export const LoginPage = () => {
     }
   };
 
+  const handleMicrosoftLogin = async () => {
+  setError("");
+  setLoading(true);
+
+  try {
+    const loginResponse = await msalInstance.loginPopup(loginRequest);
+    const accessToken = loginResponse.accessToken;
+    const data = await loginWithMicrosoft(accessToken);
+    setUser(data.user);
+    navigate("/dashboard");
+  } catch (err) {
+    console.error(err);
+    setError("Microsoft login failed. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
   return (
     <div className="min-h-screen flex">
       {/* Left Panel */}
@@ -39,7 +62,8 @@ export const LoginPage = () => {
         <div className="text-center max-w-sm">
           <h1 className="text-4xl font-bold mb-4">📒 NotesApp</h1>
           <p className="text-lg">
-            Keep your thoughts organized and accessible. Take notes anytime, anywhere.
+            Keep your thoughts organized and accessible. Take notes anytime,
+            anywhere.
           </p>
         </div>
       </div>
@@ -59,7 +83,10 @@ export const LoginPage = () => {
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Email Address
               </label>
               <input
@@ -73,7 +100,10 @@ export const LoginPage = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <input
@@ -94,6 +124,16 @@ export const LoginPage = () => {
               {loading ? "Logging in..." : "Login"}
             </button>
           </form>
+
+          <div className="my-3">
+            <button
+              onClick={handleMicrosoftLogin}
+              className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg text-gray-700 hover:bg-gray-300 transition"
+            >
+              <FaMicrosoft className="text-xl" />
+              Sign in with Microsoft 365
+            </button>
+          </div>
 
           <p className="text-center text-sm text-gray-500 mt-4">
             Don't have an account?{" "}
