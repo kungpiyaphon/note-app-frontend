@@ -35,7 +35,7 @@ export const signupWithMicrosoft = async(accessToken) => {
 };
 
 export const loginWithMicrosoft = async(accessToken) => {
-    const response = await api.post("/mongo/auth/microsoft/signin",{
+    const response = await api.post("/mongo/auth/cookie/microsoft/signin",{
         accessToken,
     });
     return response.data;

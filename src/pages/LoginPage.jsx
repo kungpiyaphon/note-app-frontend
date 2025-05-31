@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { loginUser, loginWithMicrosoft } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
 import { FaMicrosoft } from "react-icons/fa6";
-import { PublicClientApplication } from "@azure/msal-browser";
-import { loginRequest, msalConfig } from "../services/authConfig";
+import { loginRequest } from "../services/authConfig";
+import { useMsal } from "@azure/msal-react";
 
-const msalInstance = new PublicClientApplication(msalConfig);
+
 
 export const LoginPage = () => {
   const { setUser } = useAuth();
@@ -17,6 +17,8 @@ export const LoginPage = () => {
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { instance } = useMsal();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,7 +44,7 @@ export const LoginPage = () => {
     setLoading(true);
 
     try {
-      const loginResponse = await msalInstance.loginPopup(loginRequest);
+      const loginResponse = await instance.loginPopup(loginRequest);
       const accessToken = loginResponse.accessToken;
       const data = await loginWithMicrosoft(accessToken);
       setUser(data.user);
